@@ -144,40 +144,63 @@
          (weight (fl/ plausibility (fixnum->flonum num))))
         ; weight assumes either all or none of the ptns
         ; have all or none of the params
-    (yloop
-     (yfor from2 in froms)
-     (ydo
+    
+    (progn
+     (print "in dd_utils.cl, called make-dependency. the arg 'froms' is:")
+     (print froms)
+     (print "the arg 'to' is:")
+     (print to)
+     (print "the arg 'rule' is:")
+     (print rule)
+     (print "the arg 'context' is:")
+     (print context)
+     (print "the arg 'belief-path' is:")
+     (print belief-path)
+     (print "the arg 'plausibility' is:")
+     (print plausibility)
+     (print "the arg 'bd' is:")
+     (print bd)
+     
+     (yloop
+      (yfor from2 in froms)
+      (ydo
+
 ; Old code
 ;      (if (and (ty$instance? (car from2) 'not)
 ;               (not (cx$true-relative context (car from2) belief-path)))
 ;          (cx$assert-relative context (car from2) belief-path))
-      (if (ty$instance? (car from2) 'rnot)
-          (progn
-           (setf (car from2) (ob$instantiate (cadr from2) bd))
-           (ob$set (car from2) 'type *not-ob*)
-           (no-gen (cx$assert-relative context (car from2) belief-path))))
-      (cx$assert-relative context
-            (ob$fcreate `(DEPENDENCY
-                            linked-from ,(car from2)
-                            linked-to ,to
-                            weight ,(with-default
-                                     (if (ob? (cadr from2))
-                                         (ob$get (cadr from2) 'weight)
-                                         nil)
-                                      weight)
-                            offset ,(with-default
-                                     (if (ob? (cadr from2))
-                                         (ob$get (cadr from2) 'offset)
-                                         nil)
+       (progn
+       (print "from2 is: ")
+       (print from2)
+       (print "done printing this from2")
+      
+       (if (ty$instance? (car from2) 'rnot)
+           (progn
+            (setf (car from2) (ob$instantiate (cadr from2) bd))
+            (ob$set (car from2) 'type *not-ob*)
+            (no-gen (cx$assert-relative context (car from2) belief-path))))
+       (cx$assert-relative context
+             (ob$fcreate `(DEPENDENCY
+                             linked-from ,(car from2)
+                             linked-to ,to
+                             weight ,(with-default
+                                      (if (ob? (cadr from2))
+                                          (ob$get (cadr from2) 'weight)
+                                          nil)
+                                       weight)
+                             offset ,(with-default
+                                      (if (ob? (cadr from2))
+                                          (ob$get (cadr from2) 'offset)
+                                          nil)
+                                       0.0)
+                             decay ,(with-default
+                                      (if (ob? (cadr from2))
+                                          (ob$get (cadr from2) 'decay)
+                                          nil)
                                       0.0)
-                            decay ,(with-default
-                                     (if (ob? (cadr from2))
-                                         (ob$get (cadr from2) 'decay)
-                                         nil)
-                                     0.0)
-                            rule ,rule))
-            belief-path)))
-    (recalculate-strength to context belief-path)))
+                             rule ,rule))
+             belief-path)))
+     (recalculate-strength to context belief-path)))))
 
 (defun add-depend (context from to weight offset decay rule)
   (ndbg-roman-nl *gate-dbg* rule "Add dependency from ~A to ~A in ~A"

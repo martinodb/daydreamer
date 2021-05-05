@@ -851,6 +851,11 @@
          (progn
           (possible-fired-msg fired? rule ctxt show-result belief-path)
           (ob$add assertion 'inference-rule rule)
+          
+          
+          (print "doing make-dependency in dd_rule2.cl, line 854")
+          
+          
           (make-dependency (cdr show-result) assertion rule ctxt belief-path
                            (ob$get rule 'plausibility) (car show-result))
           t)
@@ -868,6 +873,12 @@
           (activate-other-top-goal (ob$get assertion 'obj) top-level-goal
                                    ctxt (->belief-path
                                          (ob$get assertion 'actor)))
+          
+          
+          
+          (print "doing make-dependency in dd_rule2.cl, line 879")
+          
+          
           (make-dependency (cdr show-result) assertion rule ctxt belief-path
                            (ob$get rule 'plausibility) (car show-result))
           t)
@@ -883,6 +894,11 @@
           (ob$set assertion 'inference-rule rule)
           (ob$add assertion 'top-level-goal top-level-goal)
           (cx$assert-relative ctxt assertion belief-path)
+          
+          
+          (print "doing make-dependency in dd_rule2.cl, line 899")
+          
+          
           (make-dependency (cdr show-result) assertion rule ctxt belief-path
                            (ob$get rule 'plausibility) (car show-result))
           (if (and (me-belief-path? belief-path)
@@ -903,6 +919,11 @@
      (if (ob$get rule 'inf-no-gen)
          (no-gen (cx$assert-relative ctxt assertion belief-path))
          (cx$assert-relative ctxt assertion belief-path))
+          
+          
+          (print "doing make-dependency in dd_rule2.cl, line 924")
+          
+          
      (make-dependency (cdr show-result) assertion rule ctxt belief-path
                       (ob$get rule 'plausibility) (car show-result))
      t))))
