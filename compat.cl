@@ -52,7 +52,15 @@
 (defmacro string? (a) `(stringp ,a))
 (defmacro uppercase? (x) `(upper-case-p ,x))
 (defmacro delq! (a b) `(delete ,a ,b))
-(defmacro append! (a b) `(nconc ,a ,b))
+
+;;(defmacro append! (a b) `(nconc ,a ,b))
+
+(defun listify (a) (if (listp a) a (list a)))
+(defmacro append! (a b) `(nconc (listify ,a) (listify ,b)))
+;; https://github.com/TeamSPoon/daydreamer/commit/27a64803472047f26b09b3c367e7829cc009785d
+
+
+
 (defmacro ascii->char (x) `(code-char ,x))
 (defmacro assq (a b) `(assoc ,a ,b))
 (defmacro increment-me (a) `(setq ,a (+ ,a 1)))

@@ -11,7 +11,7 @@
 ;
 ;*******************************************************************************
 
-(setq *question-mark-atom* '?)
+(setq *question-mark-atom* '\?)
 
 (progn
  (setq *gate-version* "GATE 2.3, Common Lisp version of 2004-12-20")
@@ -20,7 +20,7 @@
  (format t "=======================~%")
  nil)
 
-(load "compat")
+(load "compat.cl")
 
 (setq *gate-input* *standard-input*)
 (setq *gate-output* *standard-output*)
@@ -32,17 +32,17 @@
     (setq *gate-load-options* nil)
     nil)
 
-(load "loop")
-(load "gate_macros")
+(load "loop.cl")
+(load "gate_macros.cl")
 
-(load "gate_main")
-(load "gate_ty")
-(load "gate_cx")
-(load "gate_instan")
-(load "gate_prove")
-(load "gate_read_pr")
-(load "gate_unify")
-(load "gate_utils")
+(load "gate_main.cl")
+(load "gate_ty.cl")
+(load "gate_cx.cl")
+(load "gate_instan.cl")
+(load "gate_prove.cl")
+(load "gate_read_pr.cl")
+(load "gate_unify.cl")
+(load "gate_utils.cl")
 
 (load "gate_obs.cl")
 
