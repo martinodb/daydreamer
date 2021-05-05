@@ -14,6 +14,11 @@
 ;
 ;*******************************************************************************
 
+
+(defpackage "COMMON-LISP-USER" (:nicknames "USER" "CL-USER"))
+;; https://github.com/TeamSPoon/daydreamer/commit/27a64803472047f26b09b3c367e7829cc009785d
+
+
 (setq else t)
 (setq *repl-wont-print* nil)
 (defun t-or-nil (a) (if a 't nil))

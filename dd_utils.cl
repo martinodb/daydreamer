@@ -145,34 +145,34 @@
         ; weight assumes either all or none of the ptns
         ; have all or none of the params
     (yloop
-     (yfor from in froms)
+     (yfor from2 in froms)
      (ydo
 ; Old code
-;      (if (and (ty$instance? (car from) 'not)
-;               (not (cx$true-relative context (car from) belief-path)))
-;          (cx$assert-relative context (car from) belief-path))
-      (if (ty$instance? (car from) 'rnot)
+;      (if (and (ty$instance? (car from2) 'not)
+;               (not (cx$true-relative context (car from2) belief-path)))
+;          (cx$assert-relative context (car from2) belief-path))
+      (if (ty$instance? (car from2) 'rnot)
           (progn
-           (setf (car from) (ob$instantiate (cadr from) bd))
-           (ob$set (car from) 'type *not-ob*)
-           (no-gen (cx$assert-relative context (car from) belief-path))))
+           (setf (car from2) (ob$instantiate (cadr from2) bd))
+           (ob$set (car from2) 'type *not-ob*)
+           (no-gen (cx$assert-relative context (car from2) belief-path))))
       (cx$assert-relative context
             (ob$fcreate `(DEPENDENCY
-                            linked-from ,(car from)
+                            linked-from ,(car from2)
                             linked-to ,to
                             weight ,(with-default
-                                     (if (ob? (cadr from))
-                                         (ob$get (cadr from) 'weight)
+                                     (if (ob? (cadr from2))
+                                         (ob$get (cadr from2) 'weight)
                                          nil)
                                       weight)
                             offset ,(with-default
-                                     (if (ob? (cadr from))
-                                         (ob$get (cadr from) 'offset)
+                                     (if (ob? (cadr from2))
+                                         (ob$get (cadr from2) 'offset)
                                          nil)
                                       0.0)
                             decay ,(with-default
-                                     (if (ob? (cadr from))
-                                         (ob$get (cadr from) 'decay)
+                                     (if (ob? (cadr from2))
+                                         (ob$get (cadr from2) 'decay)
                                          nil)
                                      0.0)
                             rule ,rule))
